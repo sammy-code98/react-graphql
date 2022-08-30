@@ -1,11 +1,11 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Box, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 // make the graphql query here
 const EXHANGE_RATES = gql`
   query GetExhangeRate {
-    rates(currency: "AUD") {
+    rates(currency: "USD") {
       currency
       rate
     }
@@ -19,13 +19,15 @@ export default function ExchangeRate() {
     return <Box>Loading....</Box>;
   }
   if (error) {
-    return <Box>An error occured ..</Box>;
+    return <Box>{error}</Box>;
   }
 
   //   return fetched data
   return data.rates.map(({ currency, rate }) => (
     <Box key={currency}>
-        <Text>{currency} : {rate}</Text>
+      <Box border="1px" borderColor="gray.200" margin="8px" padding="2px">
+        {currency} : {rate}
+      </Box>
     </Box>
   ));
 }
